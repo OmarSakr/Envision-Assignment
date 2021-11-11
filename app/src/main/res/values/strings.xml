@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Envision Android Assignment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="capture">CAPTURE</string>
+    <string name="library">LIBRARY</string>
+    <string name="saveToLibrary">SAVE TO LIBRARY</string>
+    <string name="ocrInProgress">OCR in progress…</string>
+    <string name="textSavedToLibrary">Text saved to library!</string>
+    <string name="goToLibray">GO TO LIBRARY</string>
+    <string name="pleaseMakeSureToConnectToInternet">Please, Make sure to connect to internet</string>
+</resources>

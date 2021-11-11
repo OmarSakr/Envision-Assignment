@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/libraryFragment">
+
+    <fragment
+        android:id="@+id/libraryFragment"
+        android:name="com.codevalley.envisionandroidassignment.view.fragments.library.LibraryFragment"
+        android:label="fragment_library"
+        tools:layout="@layout/fragment_library" >
+        <action
+            android:id="@+id/action_libraryFragment_to_captureFragment"
+            app:destination="@id/captureFragment" />
+        <action
+            android:id="@+id/action_libraryFragment_to_paragraphFragment"
+            app:destination="@id/paragraphFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/captureFragment"
+        android:name="com.codevalley.envisionandroidassignment.view.fragments.capture.CaptureFragment"
+        android:label="fragment_capture"
+        tools:layout="@layout/fragment_capture" >
+        <action
+            android:id="@+id/action_captureFragment_to_libraryFragment"
+            app:destination="@id/libraryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paragraphFragment"
+        android:name="com.codevalley.envisionandroidassignment.view.fragments.paragraph.ParagraphFragment"
+        android:label="fragment_paragraph"
+        tools:layout="@layout/fragment_paragraph" />
+</navigation>
