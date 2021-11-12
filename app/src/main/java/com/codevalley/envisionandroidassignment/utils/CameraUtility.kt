@@ -5,7 +5,10 @@ import android.content.Context
 import android.os.Build
 import pub.devrel.easypermissions.EasyPermissions
 
-// CameraUtility is used for permission handling
+
+/**
+ * CameraUtility is used for permission handling
+ */
 object CameraUtility {
     fun hasCameraPermissions(context: Context) =
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {

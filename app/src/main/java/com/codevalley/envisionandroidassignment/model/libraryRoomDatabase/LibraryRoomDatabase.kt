@@ -12,6 +12,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
+
+/**
+ * This is the backend. The database.
+ */
 @Database(entities = [Library::class], version = 1)
 abstract class LibraryRoomDatabase : RoomDatabase() {
 

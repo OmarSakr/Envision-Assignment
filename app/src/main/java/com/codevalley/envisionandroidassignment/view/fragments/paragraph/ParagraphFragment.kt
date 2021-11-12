@@ -6,8 +6,9 @@ import com.codevalley.envisionandroidassignment.R
 import com.codevalley.envisionandroidassignment.databinding.FragmentParagraphBinding
 import com.codevalley.envisionandroidassignment.utils.BaseFragment
 
-
-// ParagraphFragment is used to show the saved paragraphs come from OCR.
+/**
+ * ParagraphFragment is used to show the saved paragraphs come from OCR.
+ */
 class ParagraphFragment : BaseFragment<FragmentParagraphBinding>() {
     private lateinit var navController: NavController
     override fun getViewBinding() = FragmentParagraphBinding.inflate(layoutInflater)
@@ -19,6 +20,7 @@ class ParagraphFragment : BaseFragment<FragmentParagraphBinding>() {
     }
 
     private fun initEventDriven() {
+        // navigate to LibraryFragment
         binding.ivBack.setOnClickListener {
             navController.navigateUp()
         }

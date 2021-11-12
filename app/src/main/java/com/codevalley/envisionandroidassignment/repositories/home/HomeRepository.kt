@@ -1,4 +1,4 @@
-package com.codevalley.envisionandroidassignment.repositories.homeRepository
+package com.codevalley.envisionandroidassignment.repositories.home
 
 import androidx.annotation.WorkerThread
 import com.codevalley.envisionandroidassignment.dao.LibraryDao

@@ -1,13 +1,14 @@
-package com.codevalley.envisionandroidassignment.viewModel.captureViewModel
+package com.codevalley.envisionandroidassignment.viewModel.capture
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.codevalley.envisionandroidassignment.model.documentModel.DocumentModel
+import com.codevalley.envisionandroidassignment.model.document.DocumentModel
 import com.codevalley.envisionandroidassignment.model.library.Library
-import com.codevalley.envisionandroidassignment.repositories.homeRepository.HomeRepository
-import com.codevalley.envisionandroidassignment.utils.Resource
+import com.codevalley.envisionandroidassignment.repositories.home.HomeRepository
+import com.codevalley.envisionandroidassignment.network.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -17,7 +18,7 @@ class CaptureViewModel(private val homeRepository: HomeRepository) : ViewModel()
         MutableStateFlow(
             Resource.loading(null)
         )
-    val mutableStateFlowReadDocument: MutableStateFlow<Resource<Response<DocumentModel>>> =
+    val mutableStateFlowReadDocument: StateFlow<Resource<Response<DocumentModel>>> =
         _mutableStateFlowReadDocument
 
     fun getReadDocument(photo: MultipartBody.Part) {

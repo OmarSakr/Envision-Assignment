@@ -7,7 +7,10 @@ import androidx.viewbinding.ViewBinding
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-// BaseFragment acts out as a base class for all fragments
+
+/**
+ * BaseFragment acts out as a base class for all fragments
+ */
 abstract class BaseFragment<VBinding : ViewBinding> : Fragment() {
 
     protected lateinit var binding: VBinding

@@ -9,7 +9,10 @@ import io.reactivex.disposables.Disposable
 import android.content.Intent
 import com.codevalley.envisionandroidassignment.R
 
-// BaseActivity acts out as a base class for all activities
+
+/**
+ * BaseActivity acts out as a base class for all activities
+ */
 abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
     lateinit var binding: B
     private val disposableContainer = CompositeDisposable()

@@ -18,14 +18,14 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.codevalley.envisionandroidassignment.utils.Status
+import com.codevalley.envisionandroidassignment.model.status.Status
 import com.codevalley.envisionandroidassignment.model.library.Library
 import com.codevalley.envisionandroidassignment.network.ApiHelper
+import com.codevalley.envisionandroidassignment.network.NetworkHelper
+import com.codevalley.envisionandroidassignment.network.RetrofitClient
 import com.codevalley.envisionandroidassignment.utils.*
-import com.codevalley.envisionandroidassignment.utils.Constants.FILENAME_FORMAT
-import com.codevalley.envisionandroidassignment.utils.Constants.REQUEST_CODE_CAMERA_PERMISSION
-import com.codevalley.envisionandroidassignment.viewModel.captureViewModel.CaptureViewModel
-import com.codevalley.envisionandroidassignment.viewModel.captureViewModel.CaptureViewModelFactory
+import com.codevalley.envisionandroidassignment.viewModel.capture.CaptureViewModel
+import com.codevalley.envisionandroidassignment.viewModel.capture.CaptureViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collect
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -41,10 +41,13 @@ import java.util.concurrent.ExecutorService
 
 typealias lumaListener = (luma: Double) -> Unit
 
-//CaptureFragment allows user to take image and get the OCR to save it to library
+/**
+ * CaptureFragment allows user to take image and get the OCR to save it to library
+ */
 class CaptureFragment : BaseFragment<FragmentCaptureBinding>(),
     EasyPermissions.PermissionCallbacks {
-
+    private val requestCodeCameraPermission = 0
+    private val fileNameFormat = "EEE, MMM d 'AT' HH:mm a"
     private lateinit var navController: NavController
     private var imageCapture: ImageCapture? = null
     private lateinit var outputDirectory: File
@@ -75,6 +78,7 @@ class CaptureFragment : BaseFragment<FragmentCaptureBinding>(),
         ).get(CaptureViewModel::class.java)
     }
 
+    // listening for the changes coming fom api
     @SuppressLint("NotifyDataSetChanged")
     private fun getReadDocument() {
         lifecycleScope.launchWhenStarted {
@@ -90,7 +94,7 @@ class CaptureFragment : BaseFragment<FragmentCaptureBinding>(),
                         if (it.data?.body()?.response?.paragraphs?.isNotEmpty() == true) {
                             binding.relativeCamera.visibility = GONE
                             binding.relativeResults.visibility = VISIBLE
-
+                            // loop to get all paragraphs in ont text
                             for (i in it.data.body()?.response?.paragraphs!!) {
                                 readDocument += i.paragraph
                             }
@@ -114,12 +118,12 @@ class CaptureFragment : BaseFragment<FragmentCaptureBinding>(),
     }
 
     private fun initEventDriven() {
-        // Set up the listener for take photo
         binding.tvCapture.setOnClickListener { takePhoto() }
         // Set up the listener for saving to library
         binding.tvSave.setOnClickListener {
             insertParagraph()
         }
+        // navigate to LibraryFragment
         binding.relativeLibrary.setOnClickListener {
             navController.navigate(R.id.action_captureFragment_to_libraryFragment)
         }
@@ -128,13 +132,12 @@ class CaptureFragment : BaseFragment<FragmentCaptureBinding>(),
     private fun insertParagraph() {
         val library = Library(
             binding.tvResults.text.toString(), SimpleDateFormat(
-                FILENAME_FORMAT, Locale.US
+                fileNameFormat, Locale.US
             ).format(System.currentTimeMillis())
         )
         lifecycleScope.launchWhenStarted {
             captureViewModel.addParagraph(library)
         }
-        //showing a SnackBar after the saving process is dong
         Snackbar.make(binding.tvSave, R.string.textSavedToLibrary, Snackbar.LENGTH_LONG)
             .setAction(R.string.goToLibray) {
                 navController.navigate(R.id.action_captureFragment_to_libraryFragment)
@@ -150,7 +153,7 @@ class CaptureFragment : BaseFragment<FragmentCaptureBinding>(),
         val photoFile = File(
             outputDirectory,
             SimpleDateFormat(
-                FILENAME_FORMAT, Locale.US
+                fileNameFormat, Locale.US
             ).format(System.currentTimeMillis()) + ".jpg"
         )
         // Create output options object which contains file + metadata
@@ -162,16 +165,20 @@ class CaptureFragment : BaseFragment<FragmentCaptureBinding>(),
             ContextCompat.getMainExecutor(requireActivity()),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
-                    Log.e("exception",exc.toString())
+                    Log.e("exception", exc.toString())
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     //convert file to Multipart ad upload it server
                     //checking for internet connection
-                    if (NetworkHelper(requireActivity()).isNetworkConnected()){
+                    if (NetworkHelper(requireActivity()).isNetworkConnected()) {
                         getMultipartFromFileAndSendIt(photoFile)
-                    }else{
-                        Toast.makeText(requireActivity(), requireActivity().getString(R.string.pleaseMakeSureToConnectToInternet), Toast.LENGTH_SHORT)
+                    } else {
+                        Toast.makeText(
+                            requireActivity(),
+                            requireActivity().getString(R.string.pleaseMakeSureToConnectToInternet),
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                     }
                 }
@@ -194,7 +201,8 @@ class CaptureFragment : BaseFragment<FragmentCaptureBinding>(),
             val imageAnalyzer = ImageAnalysis.Builder()
                 .build()
                 .also {
-                    it.setAnalyzer(cameraExecutor, LuminosityAnalyzer {
+                    it.setAnalyzer(cameraExecutor, LuminosityAnalyzer { luma ->
+                        Log.d("luminosity", "Average luminosity: $luma")
                     })
                 }
             // Select back camera as a default
@@ -215,11 +223,10 @@ class CaptureFragment : BaseFragment<FragmentCaptureBinding>(),
 
 
     private fun getOutputDirectory(): File {
-//        externalCacheDir?.absolutePath
         val mediaDir = requireActivity().externalCacheDir?.absolutePath.let {
             File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
         }
-        return if (mediaDir != null && mediaDir.exists())
+        return if (mediaDir.exists())
             mediaDir else requireActivity().filesDir
     }
 
@@ -233,14 +240,14 @@ class CaptureFragment : BaseFragment<FragmentCaptureBinding>(),
             EasyPermissions.requestPermissions(
                 this,
                 "You need to accept the camera permission to use this app",
-                REQUEST_CODE_CAMERA_PERMISSION,
+                requestCodeCameraPermission,
                 Manifest.permission.CAMERA
             )
         } else {
             EasyPermissions.requestPermissions(
                 this,
                 "You need to accept the camera permission to use this app",
-                REQUEST_CODE_CAMERA_PERMISSION,
+                requestCodeCameraPermission,
                 Manifest.permission.CAMERA
 
             )
@@ -270,6 +277,7 @@ class CaptureFragment : BaseFragment<FragmentCaptureBinding>(),
     }
 
 
+    //The analyzer logs the average luminosity of the image
     private class LuminosityAnalyzer(private val listener: lumaListener) : ImageAnalysis.Analyzer {
         private fun ByteBuffer.toByteArray(): ByteArray {
             rewind()    // Rewind the buffer to zero
@@ -293,12 +301,12 @@ class CaptureFragment : BaseFragment<FragmentCaptureBinding>(),
 
 
     private fun getMultipartFromFileAndSendIt(photoFile: File) {
-        Log.e("photoFile",photoFile.toString())
+        Log.e("photoFile", photoFile.toString())
         val requestFile =
             photoFile.asRequestBody("multipart/form-data".toMediaTypeOrNull())
         multipartImage =
             MultipartBody.Part.createFormData("photo", photoFile.name, requestFile)
-        Log.e("multipartImage",multipartImage.toString())
+        Log.e("multipartImage", multipartImage.toString())
 
         captureViewModel.getReadDocument(multipartImage)
         getReadDocument()

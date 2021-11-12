@@ -1,9 +1,9 @@
-package com.codevalley.envisionandroidassignment.viewModel.libraryViewModel
+package com.codevalley.envisionandroidassignment.viewModel.library
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.codevalley.envisionandroidassignment.dao.LibraryDao
-import com.codevalley.envisionandroidassignment.repositories.libraryRepository.LibraryRepository
+import com.codevalley.envisionandroidassignment.repositories.library.LibraryRepository
 
 @Suppress("UNCHECKED_CAST")
 class LibraryViewModelFactory(private val libraryDao: LibraryDao) :

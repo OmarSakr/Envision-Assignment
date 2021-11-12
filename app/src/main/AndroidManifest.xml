@@ -21,9 +21,6 @@
 
         <activity
             android:name=".view.activities.home.HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.activities.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

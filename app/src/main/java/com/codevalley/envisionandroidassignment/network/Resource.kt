@@ -1,8 +1,9 @@
-package com.codevalley.envisionandroidassignment.utils
+package com.codevalley.envisionandroidassignment.network
 
-import com.codevalley.envisionandroidassignment.utils.Status.ERROR
-import com.codevalley.envisionandroidassignment.utils.Status.LOADING
-import com.codevalley.envisionandroidassignment.utils.Status.SUCCESS
+import com.codevalley.envisionandroidassignment.model.status.Status
+import com.codevalley.envisionandroidassignment.model.status.Status.ERROR
+import com.codevalley.envisionandroidassignment.model.status.Status.LOADING
+import com.codevalley.envisionandroidassignment.model.status.Status.SUCCESS
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {

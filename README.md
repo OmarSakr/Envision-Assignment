@@ -1,9 +1,10 @@
-Envision Android Assignment
+#Envision Android Assignment
 
-is a test Project which enables user to capture an image and read the text inside it.
+A project which allows the user to capture an image and read the text inside it.
 
 used [Flow, coroutines, navigation components, clean code, Room DB,Retrofit,Camerax, and more..]
-Built With
+
+#Built With:
 
     Kotlin - As a programming language.
     Coroutines - For multithreading while handling requests to the server and local database.

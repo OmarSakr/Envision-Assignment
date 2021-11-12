@@ -1,4 +1,4 @@
-package com.codevalley.envisionandroidassignment.model.documentModel
+package com.codevalley.envisionandroidassignment.model.document
 
 data class DocumentModel(
     val response: Response,

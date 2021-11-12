@@ -1,6 +1,6 @@
 package com.codevalley.envisionandroidassignment.network
 
-import com.codevalley.envisionandroidassignment.model.documentModel.DocumentModel
+import com.codevalley.envisionandroidassignment.model.document.DocumentModel
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Multipart

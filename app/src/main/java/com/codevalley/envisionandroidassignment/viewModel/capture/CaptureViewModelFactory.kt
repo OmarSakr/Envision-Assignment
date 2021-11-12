@@ -1,10 +1,10 @@
-package com.codevalley.envisionandroidassignment.viewModel.captureViewModel
+package com.codevalley.envisionandroidassignment.viewModel.capture
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.codevalley.envisionandroidassignment.dao.LibraryDao
 import com.codevalley.envisionandroidassignment.network.ApiHelper
-import com.codevalley.envisionandroidassignment.repositories.homeRepository.HomeRepository
+import com.codevalley.envisionandroidassignment.repositories.home.HomeRepository
 
 @Suppress("UNCHECKED_CAST")
 class CaptureViewModelFactory(

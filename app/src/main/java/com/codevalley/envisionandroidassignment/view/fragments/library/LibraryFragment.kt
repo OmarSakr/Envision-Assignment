@@ -12,11 +12,14 @@ import com.codevalley.envisionandroidassignment.databinding.FragmentLibraryBindi
 import com.codevalley.envisionandroidassignment.utils.AppController
 import com.codevalley.envisionandroidassignment.utils.BaseFragment
 import com.codevalley.envisionandroidassignment.view.adapters.LibraryAdapter
-import com.codevalley.envisionandroidassignment.viewModel.libraryViewModel.LibraryViewModel
-import com.codevalley.envisionandroidassignment.viewModel.libraryViewModel.LibraryViewModelFactory
+import com.codevalley.envisionandroidassignment.viewModel.library.LibraryViewModel
+import com.codevalley.envisionandroidassignment.viewModel.library.LibraryViewModelFactory
 import kotlinx.coroutines.flow.collect
 
-// LibraryFragment shows all saved paragraphs to use
+
+/**
+ * LibraryFragment shows all saved paragraphs to use
+ */
 class LibraryFragment : BaseFragment<FragmentLibraryBinding>() {
     private lateinit var navController: NavController
     private lateinit var libraryAdapter: LibraryAdapter
@@ -29,6 +32,7 @@ class LibraryFragment : BaseFragment<FragmentLibraryBinding>() {
     }
 
     private fun initEventDriven() {
+        // navigate to captureFragment
         binding.relativeCapture.setOnClickListener {
             navController.navigate(R.id.action_libraryFragment_to_captureFragment)
         }

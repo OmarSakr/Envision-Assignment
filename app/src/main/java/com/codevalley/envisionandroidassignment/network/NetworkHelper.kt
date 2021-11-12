@@ -1,4 +1,4 @@
-package com.codevalley.envisionandroidassignment.utils
+package com.codevalley.envisionandroidassignment.network
 
 import android.content.Context
 import android.net.ConnectivityManager

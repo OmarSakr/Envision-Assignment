@@ -1,4 +1,4 @@
-package com.codevalley.envisionandroidassignment.repositories.libraryRepository
+package com.codevalley.envisionandroidassignment.repositories.library
 
 import com.codevalley.envisionandroidassignment.dao.LibraryDao
 import com.codevalley.envisionandroidassignment.model.library.Library

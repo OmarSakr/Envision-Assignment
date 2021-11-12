@@ -64,66 +64,90 @@ dependencies {
     def rxAndroid_version = "2.0.2"
     def rxJava_version = "2.2.9"
     def adapterRxJava2_version = "2.7.1"
+
     // material design
     implementation "com.google.android.material:material:$material_version"
+
     //  Kotlin standard library for JVM
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinStdlib_version"
+
     // Kotlin extensions for 'core' artifact
     implementation "androidx.core:core-ktx:$coreKtx_version"
+
     // The Support Library
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "com.android.support:support-v4:$support_version"
     implementation "com.android.support:design:$support_version"
+
     // ConstraintLayout for Android
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayout_version"
+
     // JUnit is a unit testing framework
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$extJunit_version"
+
     // The AndroidX Test Library
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+
     // recyclerview
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+
     // multiDex handler
     implementation "androidx.multidex:multidex:$multidex_version"
+
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensions_version"
+
     // ViewModel
     //noinspection GradleDependency
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
     // LiveData
     //noinspection GradleDependency
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+
     // Paging
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
     // picasso : image loader
     implementation "com.squareup.picasso:picasso:$picasso_version"
+
     // Retrofit : networking library
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:okhttp:$logging_version"
     implementation "com.squareup.okhttp3:okhttp:$logging_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$logging_version"
+
     // Room components
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
     // Rx Java
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid_version"
     implementation "io.reactivex.rxjava2:rxjava:$rxJava_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$adapterRxJava2_version"
-    //navigation
+
+    // navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
     implementation "androidx.legacy:legacy-support-v4:$legacySupport_version"
-// CameraX core library using camera2 implementation
+
+    // CameraX core library using camera2 implementation
     implementation "androidx.camera:camera-camera2:$camerax_version"
-// CameraX Lifecycle Library
+
+    // CameraX Lifecycle Library
     implementation "androidx.camera:camera-lifecycle:$camerax_version"
-// CameraX View class
+
+    // CameraX View class
     implementation "androidx.camera:camera-view:$cameraView_version"
-// easy permissions
+
+    // Easy permissions
     implementation "pub.devrel:easypermissions:$easyPermissions_version"
 
 }
